@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace ProyectoCatedraPED
 {
-    public partial class Form : System.Windows.Forms.Form
+    public partial class RegistroForm : Form
     {
-        public Form()
+        public RegistroForm()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
