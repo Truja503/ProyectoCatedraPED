@@ -94,6 +94,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RegistroForm.resx">
+      <DependentUpon>RegistroForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TarjetaLibro.resx">
       <DependentUpon>TarjetaLibro.cs</DependentUpon>
     </EmbeddedResource>
