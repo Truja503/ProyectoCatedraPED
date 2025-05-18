@@ -15,13 +15,6 @@ namespace ProyectoCatedraPED
         public Principal()
         {
             InitializeComponent();
-          
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void Principal_Load(object sender, EventArgs e)
@@ -45,7 +38,7 @@ namespace ProyectoCatedraPED
 
         private void label1_Click(object sender, EventArgs e)
         {
-
+            //
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -53,6 +46,11 @@ namespace ProyectoCatedraPED
             UsuarioForm userForm = new UsuarioForm();
             userForm.Show();
             this.Hide();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //
         }
     }
 }
