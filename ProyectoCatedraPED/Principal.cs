@@ -26,21 +26,21 @@ namespace ProyectoCatedraPED
 
         private void Principal_Load(object sender, EventArgs e)
         {
-            Libro libro1 = new Libro();
-            Libro libro2 = new Libro();
+            //Libro libro1 = new Libro();
+            //Libro libro2 = new Libro();
 
-            libro1.Autor = "Hola";
-            libro2.Autor = "Hola2";
-            libro2.Titulo = "JAJAJAJJA";
-            libro1.Titulo = "Barcelona";
+            //libro1.Autor = "Hola";
+            //libro2.Autor = "Hola2";
+            //libro2.Titulo = "JAJAJAJJA";
+            //libro1.Titulo = "Barcelona";
 
-            TarjetaLibro tl = new TarjetaLibro();
-            TarjetaLibro tl1 = new TarjetaLibro();
-            tl.CargarDatos(libro1);
-            tl1.CargarDatos(libro2);
+            //TarjetaLibro tl = new TarjetaLibro();
+            //TarjetaLibro tl1 = new TarjetaLibro();
+            //tl.CargarDatos(libro1);
+            //tl1.CargarDatos(libro2);
 
-            flpLib.Controls.Add(tl);
-            flpLib.Controls.Add(tl1);
+            //flpLib.Controls.Add(tl);
+            //flpLib.Controls.Add(tl1);
         }
 
         private void label1_Click(object sender, EventArgs e)
