@@ -28,7 +28,7 @@ namespace ProyectoDeCatedra
 
         public int ISBN
         {
-            get { return isbn; } 
+            get { return isbn; }
         }
 
         public string Title
@@ -80,6 +80,19 @@ namespace ProyectoDeCatedra
         }
 
         // Methods
+        public Libro(int id, int isbn, string title, int genre, string description, string autor, int year, string image = null, float score = 0)
+        {
+            this.id = id;
+            this.isbn = isbn;
+            this.title = title;
+            this.genre = genre;
+            this.description = description;
+            this.autor = autor;
+            this.year = year;
+            this.image = image;
+            this.score = score;
+        }
+
         public Libro(int isbn, string title, int genre, string description, string autor, int year, string image = null, float score = 0)
         {
             this.isbn = isbn;

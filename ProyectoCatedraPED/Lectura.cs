@@ -21,7 +21,7 @@ namespace ProyectoDeCatedra
 
         public bool Completado
         {
-            get { return this.completado;  }
+            get { return this.completado; }
             set { this.completado = value; }
         }
 
@@ -44,6 +44,5 @@ namespace ProyectoDeCatedra
             this.calificacion = calificacion;
             this.completado = completado;
         }
-
     }
 }

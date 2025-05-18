@@ -11,10 +11,10 @@ namespace ProyectoDeCatedra
     {
         // Diccionario que representa el grafo dirigido:
         // Cada libro (nodo origen) apunta a una lista de libros destino
-        private Dictionary<Libro, List<Libro>> conexiones = new Dictionary<Libro, List<Libro>>();
+        private Dictionary<Libro, List<(Libro destino, float peso)>> conexiones = new Dictionary<Libro, List<(Libro destino, float peso)>>();
 
         // lista de libros/lecturas
-        private List<Libro> listaLibros = new List<Libro>(); 
+        private List<Libro> listaLibros = new List<Libro>();
         private List<Lectura> listaLectura = new List<Lectura>(); // (Poco optimo)
 
         // listado de todos los usuarios en nuestra aplicacion (Poco optimo)
@@ -24,6 +24,16 @@ namespace ProyectoDeCatedra
         public List<Libro> ListLibro
         {
             get { return this.listaLibros; }
+        }
+
+        public List<Lectura> ListLectura
+        {
+            get { return this.listaLectura; }
+        }
+
+        public Dictionary<Libro, List<(Libro destino, float peso)>> Conexiones
+        {
+            get { return this.conexiones; }
         }
 
         // Obtencion de datos individuales (Libros, Usuarios, Lecturas)
@@ -42,9 +52,9 @@ namespace ProyectoDeCatedra
 
         public Usuario ObtenerUsuario(int id_user)
         {
-            foreach(Usuario usuario in listaUsuarios)
+            foreach (Usuario usuario in listaUsuarios)
             {
-                if(usuario.ID == id_user)
+                if (usuario.ID == id_user)
                 {
                     return usuario;
                 }
@@ -58,7 +68,7 @@ namespace ProyectoDeCatedra
             listaLibros.Clear();
 
             string connectionString = "Server=localhost;Database=bibliotech;User Id=sa;Password=Pass123$_;";
-            string query = "SELECT A.isbn, A.title, B.genre_name as genre, description, A.autor, A.year, A.image_name, C.score " +
+            string query = "SELECT A.id, A.isbn, A.title, B.genre_name as genre, description, A.autor, A.year, A.image_name, C.score " +
                 "FROM Books A " +
                 "LEFT JOIN Genres B ON A.genre_id = B.id " +
                 "LEFT JOIN Score C ON C.book_id = A.id"; // query personalizado
@@ -75,7 +85,7 @@ namespace ProyectoDeCatedra
                     while (reader.Read())
                     {
                         // Creamos los diferentes libros
-                        Libro libroEnBase = new Libro(Int32.Parse(reader["isbn"].ToString()), reader["title"].ToString(), 0, reader["description"].ToString(), reader["autor"].ToString(), Int32.Parse(reader["year"].ToString()), reader["image_name"].ToString(), float.Parse(reader["score"].ToString()));
+                        Libro libroEnBase = new Libro(Int32.Parse(reader["id"].ToString()), Int32.Parse(reader["isbn"].ToString()), reader["title"].ToString(), 0, reader["description"].ToString(), reader["autor"].ToString(), Int32.Parse(reader["year"].ToString()), reader["image_name"].ToString(), float.Parse(reader["score"].ToString()));
                         libroEnBase.GenreName = reader["genre"].ToString();
 
                         listaLibros.Add(libroEnBase);
@@ -94,10 +104,10 @@ namespace ProyectoDeCatedra
 
         public List<Usuario> ObtenerUsuarios()
         {
-            listaLibros.Clear();
+            listaUsuarios.Clear();
 
             string connectionString = "Server=localhost;Database=bibliotech;User Id=sa;Password=Pass123$_;";
-            string query = "SELECT id, fullname, username FORM Users"; // query personalizado
+            string query = "SELECT id, fullname, username FROM Users"; // query personalizado
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -111,7 +121,7 @@ namespace ProyectoDeCatedra
                     while (reader.Read())
                     {
                         // Creamos los diferentes libros
-                        Usuario usuarioEnBase = new Usuario(reader["fullname"].ToString(), reader["username"].ToString());
+                        Usuario usuarioEnBase = new Usuario(Int32.Parse(reader["id"].ToString()), reader["fullname"].ToString(), reader["username"].ToString());
 
                         listaUsuarios.Add(usuarioEnBase);
                     }
@@ -129,8 +139,10 @@ namespace ProyectoDeCatedra
 
         public List<Lectura> ObtenerBookRanking()
         {
+            listaLectura.Clear();
+
             string connectionString = "Server=localhost;Database=bibliotech;User Id=sa;Password=Pass123$_;";
-            string query = "SELECT * FROM BookRatings WHERE completed != 0"; // query personalizado
+            string query = "SELECT * FROM BookRatings"; // query personalizado
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -150,7 +162,7 @@ namespace ProyectoDeCatedra
                         Usuario usuarioDeLectura = ObtenerUsuario(Int32.Parse(reader["user_id"].ToString()));
 
                         // Creamos los diferentes instancias de lectura
-                        Lectura libroEnBase = new Lectura(null, libroDeLectura, float.Parse(reader["clasificacion"].ToString()), bool.Parse(reader["completed"].ToString()));
+                        Lectura libroEnBase = new Lectura(usuarioDeLectura, libroDeLectura, float.Parse(reader["rating"].ToString()), bool.Parse(reader["completed"].ToString()));
 
                         listaLectura.Add(libroEnBase); // Las agregamos a la lista de lecturas
                     }
@@ -172,45 +184,84 @@ namespace ProyectoDeCatedra
         }
 
         // Método para agregar una conexión dirigida de 'origen' hacia 'destino'
-        public void AgregarConexion(Libro origen, Libro destino)
+        public void AgregarConexion(Libro origen, Libro destino, float peso)
         {
-            // Si el libro origen no tiene conexiones, lo inicializamos
             if (!conexiones.ContainsKey(origen))
             {
-                conexiones[origen] = new List<Libro>();
+                conexiones[origen] = new List<(Libro destino, float peso)>();
             }
 
-            // Evitamos duplicar conexiones
-            if (!conexiones[origen].Contains(destino))
+            // Verifica si ya existe una conexión con ese destino
+            (Libro destino, float peso) existente = conexiones[origen].FirstOrDefault(x => x.destino.Equals(destino));
+
+            if (!existente.Equals(default((Libro, float))))
             {
-                conexiones[origen].Add(destino);
+                // Actualiza el peso acumulando
+                conexiones[origen].Remove(existente);
+                conexiones[origen].Add((destino, existente.peso + peso));
+            }
+            else
+            {
+                conexiones[origen].Add((destino, peso));
             }
         }
 
         // Construimos el grafo a partir de las lecturas de los usuarios
         public void ConstruirDesdeLecturas(List<Lectura> lecturas)
         {
-            // Agrupamos lecturas completas por cada usuario
             IEnumerable<IGrouping<Usuario, Lectura>> lecturasPorUsuario = lecturas.GroupBy(l => l.Usuario);
 
             foreach (IGrouping<Usuario, Lectura> grupo in lecturasPorUsuario)
             {
-                // Lista de libros que ese usuario completó
-                List<Libro> librosLeidos = grupo.Select(l => l.Libro).Distinct().ToList();
+                List<Lectura> libros = grupo.ToList();
 
-                // Conectamos todos los pares de libros que ese usuario leyó
-                for (int i = 0; i < librosLeidos.Count; i++)
+                for (int i = 0; i < libros.Count; i++)
                 {
-                    for (int j = 0; j < librosLeidos.Count; j++)
+                    for (int j = 0; j < libros.Count; j++)
                     {
                         if (i != j)
                         {
-                            // Aquí se conecta i → j (grafo dirigido)
-                            AgregarConexion(librosLeidos[i], librosLeidos[j]);
+                            Libro origen = libros[i].Libro;
+                            Libro destino = libros[j].Libro;
+
+                            if (origen.GenreName == destino.GenreName)
+                            {
+                                float peso = CalcularPeso(libros[i], libros[j]);
+                                if (peso > 0) // Solo agregamos conexiones con peso útil
+                                {
+                                    AgregarConexion(origen, destino, peso);
+                                }
+                            }
                         }
                     }
                 }
             }
+        }
+
+        private float CalcularPeso(Lectura a, Lectura b)
+        {
+            float peso = 0.0f;
+
+            if (a.Completado && b.Completado)
+            {
+                peso = 5.0f + ((a.Calificacion + b.Calificacion) / 2.0f); // base para completados
+            }
+            else if (a.Completado || b.Completado)
+            {
+                peso = 2.0f + ((a.Calificacion + b.Calificacion) / 4.0f);
+            }
+            else
+            {
+                peso = 0.1f;
+            }
+
+            // más peso si tienen el mismo autor
+            if (a.Libro.Autor == b.Libro.Autor)
+            {
+                peso *= 1.5f; // o puedes usar +2.0f, según quieras hacer más fuerte la relación
+            }
+
+            return peso;
         }
 
         // Calculamos el PageRank de cada libro usando el método iterativo
@@ -220,35 +271,36 @@ namespace ProyectoDeCatedra
          */
         public Dictionary<Libro, float> CalcularPageRank(float damping = 0.85f, int iteraciones = 20)
         {
-            // Obtenemos todos los libros únicos en el grafo (nodos)
-            List<Libro> libros = conexiones.Keys.Union(conexiones.Values.SelectMany(x => x)).Distinct().ToList();
-            int N = libros.Count;
+            List<Libro> libros = conexiones.Keys
+                .Union(conexiones.Values.SelectMany(x => x.Select(p => p.destino)))
+                .Distinct()
+                .ToList();
 
-            // Inicializamos los scores de todos los libros en 1/N
+            int N = libros.Count;
             Dictionary<Libro, float> rank = libros.ToDictionary(libro => libro, libro => 1.0f / N);
 
-            // Ejecutamos iterativamente el algoritmo de PageRank
             for (int iter = 0; iter < iteraciones; iter++)
             {
-                // Empezamos con una pequeña fracción de puntuación base
                 Dictionary<Libro, float> nuevoRank = libros.ToDictionary(libro => libro, libro => (1 - damping) / N);
 
                 foreach (Libro libro in libros)
                 {
-                    // Si el libro no tiene enlaces salientes, no aporta PageRank
                     if (!conexiones.ContainsKey(libro) || conexiones[libro].Count == 0)
                         continue;
 
-                    // Distribuimos el PageRank actual entre sus enlaces salientes
-                    float distribucion = rank[libro] / conexiones[libro].Count;
+                    // Suma total de pesos de las conexiones salientes
+                    float sumaPesos = conexiones[libro].Sum(x => x.peso);
 
-                    foreach (Libro destino in conexiones[libro])
+                    if (sumaPesos == 0)
+                        continue;
+
+                    foreach (var (destino, peso) in conexiones[libro])
                     {
-                        nuevoRank[destino] += damping * distribucion;
+                        float proporcion = peso / sumaPesos;
+                        nuevoRank[destino] += damping * rank[libro] * proporcion;
                     }
                 }
 
-                // Actualizamos los scores
                 rank = nuevoRank;
             }
 

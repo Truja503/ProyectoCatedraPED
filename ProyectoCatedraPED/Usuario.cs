@@ -17,7 +17,7 @@ namespace ProyectoDeCatedra
         // Set&Get
         public int ID
         {
-            get { return id; }
+            get { return this.id; }
         }
 
         public string Fullname
@@ -33,11 +33,19 @@ namespace ProyectoDeCatedra
         }
 
         // Methods
+        public Usuario(int id, string fullname, string username)
+        {
+            this.id = id;
+            this.fullname = fullname;
+            this.username = username;
+        }
+
         public Usuario(string fullname, string username)
         {
             this.fullname = fullname;
             this.username = username;
         }
+
 
         // Agregar
         public bool AgregarUsuario()
