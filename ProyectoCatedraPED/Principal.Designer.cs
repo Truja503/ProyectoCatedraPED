@@ -45,7 +45,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 17);
+            this.label1.Location = new System.Drawing.Point(13, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(152, 33);
             this.label1.TabIndex = 0;
@@ -111,9 +111,9 @@
             // flpLib
             // 
             this.flpLib.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.flpLib.Location = new System.Drawing.Point(258, 239);
+            this.flpLib.Location = new System.Drawing.Point(258, 218);
             this.flpLib.Name = "flpLib";
-            this.flpLib.Size = new System.Drawing.Size(1077, 375);
+            this.flpLib.Size = new System.Drawing.Size(1077, 396);
             this.flpLib.TabIndex = 5;
             // 
             // pictureBox1
@@ -121,7 +121,7 @@
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(257, -8);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1078, 258);
+            this.pictureBox1.Size = new System.Drawing.Size(1078, 226);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
@@ -133,9 +133,9 @@
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(897, 189);
+            this.button5.Location = new System.Drawing.Point(895, 165);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(326, 40);
+            this.button5.Size = new System.Drawing.Size(326, 35);
             this.button5.TabIndex = 6;
             this.button5.Text = "Ver las opciones más populares";
             this.button5.UseVisualStyleBackColor = false;
@@ -150,7 +150,7 @@
             this.Controls.Add(this.flpLib);
             this.Controls.Add(this.groupBox1);
             this.Name = "Principal";
-            this.Text = "Form1";
+            this.Text = "Home";
             this.Load += new System.EventHandler(this.Principal_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
