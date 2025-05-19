@@ -68,7 +68,7 @@ namespace ProyectoCatedraPED
             listaLibros.Clear();
 
             string connectionString = "Server=localhost;Database=bibliotech;User Id=sa;Password=Pass123$_;";
-            string query = "SELECT A.id, A.isbn, A.title, B.genre_name as genre, description, A.autor, A.year, A.image_name, C.score " +
+            string query = "SELECT A.id, A.isbn, A.title, B.genre_name as genre, description, A.autor, A.year, A.image_name, C.score, A.genre_id " +
                 "FROM Books A " +
                 "LEFT JOIN Genres B ON A.genre_id = B.id " +
                 "LEFT JOIN Score C ON C.book_id = A.id"; // query personalizado
@@ -85,7 +85,7 @@ namespace ProyectoCatedraPED
                     while (reader.Read())
                     {
                         // Creamos los diferentes libros
-                        Libro libroEnBase = new Libro(Int32.Parse(reader["id"].ToString()), Int32.Parse(reader["isbn"].ToString()), reader["title"].ToString(), 0, reader["description"].ToString(), reader["autor"].ToString(), Int32.Parse(reader["year"].ToString()), reader["image_name"].ToString(), float.Parse(reader["score"].ToString()));
+                        Libro libroEnBase = new Libro(Int32.Parse(reader["id"].ToString()), Int32.Parse(reader["isbn"].ToString()), reader["title"].ToString(), Int32.Parse(reader["genre_id"].ToString()), reader["description"].ToString(), reader["autor"].ToString(), Int32.Parse(reader["year"].ToString()), reader["image_name"].ToString(), float.Parse(reader["score"].ToString()));
                         libroEnBase.GenreName = reader["genre"].ToString();
 
                         listaLibros.Add(libroEnBase);
@@ -102,16 +102,24 @@ namespace ProyectoCatedraPED
             return listaLibros;
         }
 
-        public List<Libro> ObtenerLibrosCategoria(int categoria_id)
+        public List<Libro> ObtenerLibrosPocoConocidos()
         {
             listaLibros.Clear();
 
             string connectionString = "Server=localhost;Database=bibliotech;User Id=sa;Password=Pass123$_;";
-            string query = "SELECT A.id, A.isbn, A.title, B.genre_name as genre, description, A.autor, A.year, A.image_name, C.score " +
-                "FROM Books A " +
-                "LEFT JOIN Genres B ON A.genre_id = B.id " +
-                "LEFT JOIN Score C ON C.book_id = A.id " +
-                "WHERE A.genre_id = @genreId"; // query personalizado
+            string query = "SELECT b.id, b.isbn, b.title, a.genre_name AS genre, b.autor, b.year, b.image_name, C.score, b.genre_id " +
+                            "FROM Books b " +
+                            "LEFT JOIN Genres a ON b.genre_id = a.id " +
+                            "LEFT JOIN Score C ON C.book_id = b.id " +
+                            "JOIN BookRatings l ON l.book_id = b.id " +
+                            "GROUP BY  b.id, b.isbn, b.title, a.genre_name, b.autor, b.year, b.image_name, C.score, b.genre_id " +
+                            "HAVING b.id NOT IN( " +
+                            "SELECT l1.book_id " +
+                            "FROM BookRatings l1 " +
+                            "JOIN BookRatings l2 ON l1.user_id = l2.user_id AND l1.book_id <> l2.book_id " +
+                            "JOIN Books b1 ON l1.book_id = b1.id " +
+                            "JOIN Books b2 ON l2.book_id = b2.id " +
+                            "WHERE b1.genre_id = b2.genre_id)"; // query personalizado
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -120,14 +128,12 @@ namespace ProyectoCatedraPED
                     connection.Open();
 
                     SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@genreId", categoria_id);
-
                     SqlDataReader reader = command.ExecuteReader();
 
                     while (reader.Read())
                     {
                         // Creamos los diferentes libros
-                        Libro libroEnBase = new Libro(Int32.Parse(reader["id"].ToString()), Int32.Parse(reader["isbn"].ToString()), reader["title"].ToString(), 0, reader["description"].ToString(), reader["autor"].ToString(), Int32.Parse(reader["year"].ToString()), reader["image_name"].ToString(), float.Parse(reader["score"].ToString()));
+                        Libro libroEnBase = new Libro(Int32.Parse(reader["id"].ToString()), Int32.Parse(reader["isbn"].ToString()), reader["title"].ToString(), Int32.Parse(reader["genre_id"].ToString()), "", reader["autor"].ToString(), Int32.Parse(reader["year"].ToString()), reader["image_name"].ToString(), float.Parse(reader["score"].ToString()));
                         libroEnBase.GenreName = reader["genre"].ToString();
 
                         listaLibros.Add(libroEnBase);
@@ -143,7 +149,6 @@ namespace ProyectoCatedraPED
 
             return listaLibros;
         }
-
         public List<Usuario> ObtenerUsuarios()
         {
             listaUsuarios.Clear();

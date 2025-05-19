@@ -23,9 +23,13 @@ namespace ProyectoCatedraPED
             grafo = new GrafoLibro();
             listaDeLecturas = new List<Lectura>();
 
+            //
+            grafo.ObtenerUsuarios();
+            grafo.ObtenerLibros();
+
             flpLib.WrapContents = true;
             flpLib.AutoScroll = true;
-            flpLib.MaximumSize = new Size(1077, 1200);
+            flpLib.MaximumSize = new Size(1077, 1150);
         }
 
         private void Principal_Load(object sender, EventArgs e)
@@ -62,6 +66,41 @@ namespace ProyectoCatedraPED
             // Extrae los 8 con mejor PageRank
             flpLib.Controls.Add(titulo2);
             flpLib.Controls.Add(recomendadosPanel);
+
+
+            //
+            Label titulo3 = new Label();
+            titulo3.Text = "Lo mejor de Tech";
+            titulo3.Font = new Font("Segoe UI", 18, FontStyle.Bold);
+            titulo3.ForeColor = Color.White;
+            titulo3.Margin = new Padding(10, 20, 0, 10); // Izquierda, Arriba, Derecha, Abajo
+            titulo3.AutoSize = false;
+            titulo3.Width = flpLib.Width - 10;
+            titulo3.Height = 30;
+
+            //
+            FlowLayoutPanel recomendadosTechPanel = GenerarTarjetasRecomendados(4);
+
+            // Extrae los 8 con mejor PageRank
+            flpLib.Controls.Add(titulo3);
+            flpLib.Controls.Add(recomendadosTechPanel);
+
+            //
+            Label titulo4 = new Label();
+            titulo4.Text = "Descubre algo nuevo";
+            titulo4.Font = new Font("Segoe UI", 18, FontStyle.Bold);
+            titulo4.ForeColor = Color.White;
+            titulo4.Margin = new Padding(10, 20, 0, 10); // Izquierda, Arriba, Derecha, Abajo
+            titulo4.AutoSize = false;
+            titulo4.Width = flpLib.Width - 10;
+            titulo4.Height = 30;
+
+            //
+            FlowLayoutPanel DesconocidosPanel = GenerarTarjetasDesconocidos();
+
+            // Extrae los 8 con mejor PageRank
+            flpLib.Controls.Add(titulo4);
+            flpLib.Controls.Add(DesconocidosPanel);
         }
 
         private FlowLayoutPanel GenerarTarjetasGeneral()
@@ -103,10 +142,6 @@ namespace ProyectoCatedraPED
 
             List<Libro> librosRecomendados = new List<Libro>();
 
-            //
-            grafo.ObtenerUsuarios();
-            grafo.ObtenerLibros();
-
             // Obtenemos las lecturas por usuario desde nuestra DB
             listaDeLecturas = grafo.ObtenerBookRanking();
 
@@ -119,21 +154,21 @@ namespace ProyectoCatedraPED
             // Obtenemos los libros de nuestra DB
             foreach (var libro in DiccionarioLibrosRankeados.OrderByDescending(x => x.Value))
             {
-                limit++;
-
-                if (limit == 9)
+                if (limit == 8)
                 {
                     break;
                 }
 
-                if (id_genre != 0)
+                if (id_genre == 0)
                 {
+                    limit++;
                     librosRecomendados.Add(libro.Key);
                 }
                 else
                 {
                     if (libro.Key.Genre == id_genre)
                     {
+                        limit++;
                         librosRecomendados.Add(libro.Key);
                     }
                 }
@@ -151,6 +186,39 @@ namespace ProyectoCatedraPED
             // Aquí agregas tus tarjetas (pueden ser UserControls personalizados)
             foreach (var libro in librosRecomendados)
             {
+                var tarjeta = CrearTarjetaLibro(libro); // Devuelve un Panel, UserControl, etc.
+                panelLibros.Controls.Add(tarjeta);
+            }
+
+            return panelLibros;
+        }
+
+        private FlowLayoutPanel GenerarTarjetasDesconocidos()
+        {
+            int limit = 0;
+
+            //
+            List<Libro> librosGeneral = grafo.ObtenerLibrosPocoConocidos();
+
+            FlowLayoutPanel panelLibros = new FlowLayoutPanel();
+            panelLibros.FlowDirection = FlowDirection.LeftToRight;
+            panelLibros.AutoSize = true;
+            panelLibros.WrapContents = true;
+            panelLibros.Height = 200; // alto de las tarjetas
+            panelLibros.AutoScroll = false;
+            panelLibros.BackColor = Color.Transparent;
+            panelLibros.Margin = new Padding(10, 0, 0, 0);
+
+            // Aquí agregas tus tarjetas (pueden ser UserControls personalizados)
+            foreach (var libro in librosGeneral)
+            {
+                limit++;
+
+                if (limit == 9)
+                {
+                    break;
+                }
+
                 var tarjeta = CrearTarjetaLibro(libro); // Devuelve un Panel, UserControl, etc.
                 panelLibros.Controls.Add(tarjeta);
             }
