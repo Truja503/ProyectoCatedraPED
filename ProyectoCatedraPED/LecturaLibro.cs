@@ -104,7 +104,14 @@ namespace ProyectoCatedraPED
 
         private void btnCompletar_Click(object sender, EventArgs e)
         {
+            CalificarLibro calificarForm = new CalificarLibro();
 
+            if (calificarForm.ShowDialog() == DialogResult.OK)
+            {
+                int calificacion = calificarForm.UserRating;
+
+
+            }
         }
 
         private void btnAbandonar_Click(object sender, EventArgs e)

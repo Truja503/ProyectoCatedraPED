@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalificarLibro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalificarLibro.Designer.cs">
+      <DependentUpon>CalificarLibro.cs</DependentUpon>
+    </Compile>
     <Compile Include="DetallesLibro.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +106,9 @@
     <Compile Include="VentanaModal.Designer.cs">
       <DependentUpon>VentanaModal.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CalificarLibro.resx">
+      <DependentUpon>CalificarLibro.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DetallesLibro.resx">
       <DependentUpon>DetallesLibro.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,6 +161,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\estrella-llena.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\estrella-vacia.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
