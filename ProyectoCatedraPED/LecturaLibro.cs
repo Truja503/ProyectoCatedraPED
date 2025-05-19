@@ -29,11 +29,9 @@ namespace ProyectoCatedraPED
             InicializarPaginas();
             MostrarPagina();
 
-            //
             Console.WriteLine("ID USER: " + UserId + " | ID BOOK: " + libroId);
             id_user = UserId;
             id_book = libroId;
-
             this.DoubleBuffered = true;
 
             grafo = new GrafoLibro();
