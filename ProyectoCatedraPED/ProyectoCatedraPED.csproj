@@ -79,6 +79,12 @@
     <Compile Include="UsuarioForm.Designer.cs">
       <DependentUpon>UsuarioForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="VentanaModal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VentanaModal.Designer.cs">
+      <DependentUpon>VentanaModal.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -102,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UsuarioForm.resx">
       <DependentUpon>UsuarioForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VentanaModal.resx">
+      <DependentUpon>VentanaModal.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
