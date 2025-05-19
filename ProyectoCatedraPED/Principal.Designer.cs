@@ -115,10 +115,9 @@
             // flpLib
             // 
             this.flpLib.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.flpLib.Controls.Add(this.button3);
-            this.flpLib.Location = new System.Drawing.Point(0, 226);
+            this.flpLib.Location = new System.Drawing.Point(258, 239);
             this.flpLib.Name = "flpLib";
-            this.flpLib.Size = new System.Drawing.Size(1077, 1200);
+            this.flpLib.Size = new System.Drawing.Size(1077, 375);
             this.flpLib.TabIndex = 5;
             // 
             // pictureBox1
@@ -138,7 +137,7 @@
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(639, 173);
+            this.button5.Location = new System.Drawing.Point(897, 189);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(326, 35);
             this.button5.TabIndex = 6;
