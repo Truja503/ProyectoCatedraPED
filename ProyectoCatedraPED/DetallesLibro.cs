@@ -14,10 +14,13 @@ namespace ProyectoCatedraPED
     public partial class DetallesLibro : Form
     {
         private GrafoLibro grafo;
+        int libro_id;
 
         public DetallesLibro(int libroId)
         {
             InitializeComponent();
+        
+            libro_id = libroId;
             this.DoubleBuffered = true;
 
             grafo = new GrafoLibro();
@@ -64,6 +67,18 @@ namespace ProyectoCatedraPED
 
                 e.Graphics.FillRectangle(brush, this.ClientRectangle);
             }
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnLeer_Click(object sender, EventArgs e)
+        {
+            LecturaLibro lecturaLibroForm = new LecturaLibro(libro_id);
+            lecturaLibroForm.Show();
+            this.Hide();
         }
     }
 }
