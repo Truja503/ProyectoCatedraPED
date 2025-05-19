@@ -295,6 +295,11 @@ namespace ProyectoCatedraPED
             }
         }
 
+        public void ActualizarScoreLibros()
+        {
+            //
+        }
+
         // Método para agregar una conexión dirigida de 'origen' hacia 'destino'
         public void AgregarConexion(Libro origen, Libro destino, float peso)
         {
