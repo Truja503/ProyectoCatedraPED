@@ -133,6 +133,7 @@
             this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(194)))), ((int)(((byte)(149)))));
             this.groupBox3.Controls.Add(this.btnRefresh);
             this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox3.ForeColor = System.Drawing.SystemColors.Control;
             this.groupBox3.Location = new System.Drawing.Point(258, -14);
             this.groupBox3.Name = "groupBox3";
@@ -161,10 +162,10 @@
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(265, 92);
+            this.panel1.Location = new System.Drawing.Point(264, 92);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1063, 522);
-            this.panel1.TabIndex = 13;
+            this.panel1.Size = new System.Drawing.Size(1064, 522);
+            this.panel1.TabIndex = 11;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // UsuarioForm
@@ -177,6 +178,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Name = "UsuarioForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Grafo: Visualizacion";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UsuarioForm_FormClosed);
             this.groupBox1.ResumeLayout(false);

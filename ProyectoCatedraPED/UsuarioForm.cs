@@ -26,9 +26,15 @@ namespace ProyectoCatedraPED
         int margenMinimo = 50;
         int margenArista = 20;
 
-        public UsuarioForm()
+        //
+        int id_user;
+
+        public UsuarioForm(int id_user)
         {
             InitializeComponent();
+
+            //
+            this.id_user = id_user;
 
             grafo = new GrafoLibro();
             listaDeLecturas = new List<Lectura>();
@@ -65,7 +71,7 @@ namespace ProyectoCatedraPED
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Principal pForm = new Principal();
+            Principal pForm = new Principal(id_user);
             pForm.Show();
             this.Hide();
         }
@@ -88,6 +94,11 @@ namespace ProyectoCatedraPED
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
+            using (Pen pen = new Pen(Color.FromArgb(30, 30, 30), 2)) // puedes cambiar el grosor aquí
+            {
+                e.Graphics.DrawRectangle(pen, 0, 0, panel1.Width - 1, panel1.Height - 1);
+            }
+
             if (listoDibujo)
             {
                 Console.WriteLine("LISTO");

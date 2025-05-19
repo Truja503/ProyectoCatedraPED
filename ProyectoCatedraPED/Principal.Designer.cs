@@ -114,15 +114,15 @@
             // flpLib
             // 
             this.flpLib.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.flpLib.Location = new System.Drawing.Point(0, 225);
+            this.flpLib.Location = new System.Drawing.Point(0, 218);
             this.flpLib.Name = "flpLib";
-            this.flpLib.Size = new System.Drawing.Size(1077, 1200);
+            this.flpLib.Size = new System.Drawing.Size(1077, 1020);
             this.flpLib.TabIndex = 5;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(-3, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(0, -7);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(1078, 226);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -134,9 +134,9 @@
             this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(194)))), ((int)(((byte)(149)))));
             this.button5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(194)))), ((int)(((byte)(149)))));
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(633, 175);
+            this.button5.Location = new System.Drawing.Point(639, 166);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(326, 35);
             this.button5.TabIndex = 6;
@@ -147,7 +147,7 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.AutoScrollMargin = new System.Drawing.Size(0, 790);
-            this.panel1.AutoScrollMinSize = new System.Drawing.Size(0, 1200);
+            this.panel1.AutoScrollMinSize = new System.Drawing.Size(0, 1020);
             this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.flpLib);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -173,6 +173,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
             this.Name = "Principal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Home";
             this.Load += new System.EventHandler(this.Principal_Load);
             this.groupBox1.ResumeLayout(false);

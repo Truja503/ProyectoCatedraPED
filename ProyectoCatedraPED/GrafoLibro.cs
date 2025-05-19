@@ -68,7 +68,7 @@ namespace ProyectoCatedraPED
             listaLibros.Clear();
 
             string connectionString = "Server=localhost;Database=bibliotech;User Id=sa;Password=Pass123$_;";
-            string query = "SELECT A.id, A.isbn, A.title, B.genre_name as genre, description, A.autor, A.year, A.image_name, C.score " +
+            string query = "SELECT A.id, A.isbn, A.title, B.genre_name as genre, description, A.autor, A.year, A.image_name, C.score, A.genre_id " +
                 "FROM Books A " +
                 "LEFT JOIN Genres B ON A.genre_id = B.id " +
                 "LEFT JOIN Score C ON C.book_id = A.id"; // query personalizado
@@ -85,7 +85,7 @@ namespace ProyectoCatedraPED
                     while (reader.Read())
                     {
                         // Creamos los diferentes libros
-                        Libro libroEnBase = new Libro(Int32.Parse(reader["id"].ToString()), Int32.Parse(reader["isbn"].ToString()), reader["title"].ToString(), 0, reader["description"].ToString(), reader["autor"].ToString(), Int32.Parse(reader["year"].ToString()), reader["image_name"].ToString(), float.Parse(reader["score"].ToString()));
+                        Libro libroEnBase = new Libro(Int32.Parse(reader["id"].ToString()), Int32.Parse(reader["isbn"].ToString()), reader["title"].ToString(), Int32.Parse(reader["genre_id"].ToString()), reader["description"].ToString(), reader["autor"].ToString(), Int32.Parse(reader["year"].ToString()), reader["image_name"].ToString(), float.Parse(reader["score"].ToString()));
                         libroEnBase.GenreName = reader["genre"].ToString();
 
                         listaLibros.Add(libroEnBase);
@@ -102,6 +102,53 @@ namespace ProyectoCatedraPED
             return listaLibros;
         }
 
+        public List<Libro> ObtenerLibrosPocoConocidos()
+        {
+            listaLibros.Clear();
+
+            string connectionString = "Server=localhost;Database=bibliotech;User Id=sa;Password=Pass123$_;";
+            string query = "SELECT b.id, b.isbn, b.title, a.genre_name AS genre, b.autor, b.year, b.image_name, C.score, b.genre_id " +
+                            "FROM Books b " +
+                            "LEFT JOIN Genres a ON b.genre_id = a.id " +
+                            "LEFT JOIN Score C ON C.book_id = b.id " +
+                            "JOIN BookRatings l ON l.book_id = b.id " +
+                            "GROUP BY  b.id, b.isbn, b.title, a.genre_name, b.autor, b.year, b.image_name, C.score, b.genre_id " +
+                            "HAVING b.id NOT IN( " +
+                            "SELECT l1.book_id " +
+                            "FROM BookRatings l1 " +
+                            "JOIN BookRatings l2 ON l1.user_id = l2.user_id AND l1.book_id <> l2.book_id " +
+                            "JOIN Books b1 ON l1.book_id = b1.id " +
+                            "JOIN Books b2 ON l2.book_id = b2.id " +
+                            "WHERE b1.genre_id = b2.genre_id)"; // query personalizado
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        // Creamos los diferentes libros
+                        Libro libroEnBase = new Libro(Int32.Parse(reader["id"].ToString()), Int32.Parse(reader["isbn"].ToString()), reader["title"].ToString(), Int32.Parse(reader["genre_id"].ToString()), "", reader["autor"].ToString(), Int32.Parse(reader["year"].ToString()), reader["image_name"].ToString(), float.Parse(reader["score"].ToString()));
+                        libroEnBase.GenreName = reader["genre"].ToString();
+
+                        listaLibros.Add(libroEnBase);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+            }
+
+            return listaLibros;
+        }
         public List<Usuario> ObtenerUsuarios()
         {
             listaUsuarios.Clear();
@@ -178,9 +225,77 @@ namespace ProyectoCatedraPED
             return listaLectura;
         }
 
+        public Lectura ObtenerBookRankingUser(int id_user, int id_book)
+        {
+            Lectura libroEnBase = null;
+
+            string connectionString = "Server=localhost;Database=bibliotech;User Id=sa;Password=Pass123$_;";
+            string query = "SELECT * FROM BookRatings WHERE book_id = @BookId AND user_id = @UserId"; // query personalizado
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@bookId", id_book);
+                    command.Parameters.AddWithValue("@UserId", id_user);
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        // Obtenemos el libro de la lectura extraida
+                        Libro libroDeLectura = ObtenerLibro(Int32.Parse(reader["book_id"].ToString()));
+
+                        // Obtenemos el usuario de la lectura extraida
+                        Usuario usuarioDeLectura = ObtenerUsuario(Int32.Parse(reader["user_id"].ToString()));
+
+                        // Creamos los diferentes instancias de lectura
+                        libroEnBase = new Lectura(usuarioDeLectura, libroDeLectura, float.Parse(reader["rating"].ToString()), bool.Parse(reader["completed"].ToString()));
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+            }
+
+            return libroEnBase;
+        }
+
         public void AgregarLibros(Libro libro)
         {
+            //
+        }
 
+        public void AgregarCalificacion(int id_book, int id_user, bool completed, int calificacion)
+        {
+            string connectionString = "Server=localhost;Database=bibliotech;User Id=sa;Password=Pass123$_;";
+            string query = "INSERT INTO BookRatings (user_id, book_id, rating, completed) VALUES (@userId, @bookId, @rating, @completed)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(query, connection);
+
+                    command.Parameters.AddWithValue("@userId", id_user);
+                    command.Parameters.AddWithValue("@bookId", id_book);
+                    command.Parameters.AddWithValue("@rating", calificacion);
+                    command.Parameters.AddWithValue("@completed", completed);
+
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al insertar calificación: " + ex.Message);
+                }
+            }
         }
 
         // Método para agregar una conexión dirigida de 'origen' hacia 'destino'

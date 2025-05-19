@@ -55,8 +55,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalificarLibro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalificarLibro.Designer.cs">
+      <DependentUpon>CalificarLibro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DetallesLibro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetallesLibro.Designer.cs">
+      <DependentUpon>DetallesLibro.cs</DependentUpon>
+    </Compile>
     <Compile Include="GrafoLibro.cs" />
     <Compile Include="Lectura.cs" />
+    <Compile Include="LecturaLibro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LecturaLibro.Designer.cs">
+      <DependentUpon>LecturaLibro.cs</DependentUpon>
+    </Compile>
     <Compile Include="Libro.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -103,6 +121,15 @@
     <Compile Include="VentanaModal.Designer.cs">
       <DependentUpon>VentanaModal.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CalificarLibro.resx">
+      <DependentUpon>CalificarLibro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetallesLibro.resx">
+      <DependentUpon>DetallesLibro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LecturaLibro.resx">
+      <DependentUpon>LecturaLibro.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -117,6 +144,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="RegistroForm.resx">
       <DependentUpon>RegistroForm.cs</DependentUpon>
@@ -143,6 +171,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\default.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\estrella-llena.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\estrella-vacia.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
