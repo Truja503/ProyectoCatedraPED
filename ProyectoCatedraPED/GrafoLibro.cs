@@ -225,9 +225,77 @@ namespace ProyectoCatedraPED
             return listaLectura;
         }
 
+        public Lectura ObtenerBookRankingUser(int id_user, int id_book)
+        {
+            Lectura libroEnBase = null;
+
+            string connectionString = "Server=localhost;Database=bibliotech;User Id=sa;Password=Pass123$_;";
+            string query = "SELECT * FROM BookRatings WHERE book_id = @BookId AND user_id = @UserId"; // query personalizado
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@bookId", id_book);
+                    command.Parameters.AddWithValue("@UserId", id_user);
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        // Obtenemos el libro de la lectura extraida
+                        Libro libroDeLectura = ObtenerLibro(Int32.Parse(reader["book_id"].ToString()));
+
+                        // Obtenemos el usuario de la lectura extraida
+                        Usuario usuarioDeLectura = ObtenerUsuario(Int32.Parse(reader["user_id"].ToString()));
+
+                        // Creamos los diferentes instancias de lectura
+                        libroEnBase = new Lectura(usuarioDeLectura, libroDeLectura, float.Parse(reader["rating"].ToString()), bool.Parse(reader["completed"].ToString()));
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+            }
+
+            return libroEnBase;
+        }
+
         public void AgregarLibros(Libro libro)
         {
+            //
+        }
 
+        public void AgregarCalificacion(int id_book, int id_user, bool completed, int calificacion)
+        {
+            string connectionString = "Server=localhost;Database=bibliotech;User Id=sa;Password=Pass123$_;";
+            string query = "INSERT INTO BookRatings (user_id, book_id, rating, completed) VALUES (@userId, @bookId, @rating, @completed)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(query, connection);
+
+                    command.Parameters.AddWithValue("@userId", id_user);
+                    command.Parameters.AddWithValue("@bookId", id_book);
+                    command.Parameters.AddWithValue("@rating", calificacion);
+                    command.Parameters.AddWithValue("@completed", completed);
+
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al insertar calificación: " + ex.Message);
+                }
+            }
         }
 
         // Método para agregar una conexión dirigida de 'origen' hacia 'destino'

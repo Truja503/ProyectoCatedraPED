@@ -16,9 +16,15 @@ namespace ProyectoCatedraPED
         private GrafoLibro grafo;
         int libro_id;
 
-        public DetallesLibro(int libroId)
+        //
+        int id_user;
+
+        public DetallesLibro(int libroId, int UserId)
         {
             InitializeComponent();
+
+            //
+            id_user = UserId;
         
             libro_id = libroId;
             this.DoubleBuffered = true;
@@ -76,7 +82,7 @@ namespace ProyectoCatedraPED
 
         private void btnLeer_Click(object sender, EventArgs e)
         {
-            LecturaLibro lecturaLibroForm = new LecturaLibro(libro_id);
+            LecturaLibro lecturaLibroForm = new LecturaLibro(libro_id, id_user);
             lecturaLibroForm.Show();
             this.Hide();
         }

@@ -16,9 +16,16 @@ namespace ProyectoCatedraPED
         List<Lectura> listaDeLecturas;
         Dictionary<Libro, float> DiccionarioLibrosRankeados;
 
-        public Principal()
+        // Datos Usuario
+        int id_user;
+        string username;
+
+        public Principal(int id_user = 0)
         {
             InitializeComponent();
+
+            // Harcoding User
+            this.id_user = (id_user != 0) ? id_user : 1;
 
             grafo = new GrafoLibro();
             listaDeLecturas = new List<Lectura>();
@@ -285,7 +292,7 @@ namespace ProyectoCatedraPED
                 int libroId = (int)btn.Tag;
 
                 // Abre un formulario de detalle y le pasa el ID
-                DetallesLibro detallesForm = new DetallesLibro(libroId);
+                DetallesLibro detallesForm = new DetallesLibro(libroId, id_user);
                 detallesForm.Show(); // o .ShowDialog() si quieres modal
             }
         }
@@ -297,7 +304,7 @@ namespace ProyectoCatedraPED
 
         private void button2_Click(object sender, EventArgs e)
         {
-            UsuarioForm userForm = new UsuarioForm();
+            UsuarioForm userForm = new UsuarioForm(id_user);
             userForm.Show();
             this.Hide();
         }

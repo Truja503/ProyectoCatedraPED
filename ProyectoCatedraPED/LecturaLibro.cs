@@ -17,16 +17,37 @@ namespace ProyectoCatedraPED
 
         private GrafoLibro grafo;
 
-        public LecturaLibro(int libroId)
+        //
+        int id_user;
+
+        //
+        int id_book;
+
+        public LecturaLibro(int libroId, int UserId)
         {
             InitializeComponent();
             InicializarPaginas();
             MostrarPagina();
 
+            //
+            Console.WriteLine("ID USER: " + UserId + " | ID BOOK: " + libroId);
+            id_user = UserId;
+            id_book = libroId;
+
             this.DoubleBuffered = true;
 
             grafo = new GrafoLibro();
             grafo.ObtenerLibros();
+
+            //
+            Lectura lec = grafo.ObtenerBookRankingUser(UserId, libroId);
+            if (lec != null)
+            {
+                btnCompletar.Enabled = false;
+                btnAbandonar.Enabled = false;
+                lblCalificado.Text = "Ya has calificado este libro - ⭐" + lec.Calificacion;
+            }
+
 
             Libro libroDetallado = grafo.ObtenerLibro(libroId);
 
@@ -104,12 +125,34 @@ namespace ProyectoCatedraPED
 
         private void btnCompletar_Click(object sender, EventArgs e)
         {
+            CalificarLibro calificarForm = new CalificarLibro();
 
+            if (calificarForm.ShowDialog() == DialogResult.OK)
+            {
+                int calificacion = calificarForm.UserRating;
+                bool completed = true;
+
+                grafo.AgregarCalificacion(id_book, id_user, completed, calificacion);
+
+                btnCompletar.Enabled = false;
+                btnAbandonar.Enabled = false;
+            }
         }
 
         private void btnAbandonar_Click(object sender, EventArgs e)
         {
+            CalificarLibro calificarForm = new CalificarLibro();
 
+            if (calificarForm.ShowDialog() == DialogResult.OK)
+            {
+                int calificacion = calificarForm.UserRating;
+                bool completed = false;
+
+                grafo.AgregarCalificacion(id_book, id_user, completed, calificacion);
+
+                btnCompletar.Enabled = false;
+                btnAbandonar.Enabled = false;
+            }
         }
     }
 }
