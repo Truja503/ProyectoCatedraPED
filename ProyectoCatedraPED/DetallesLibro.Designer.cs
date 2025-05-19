@@ -66,7 +66,7 @@ namespace ProyectoCatedraPED
             this.lblDescripcion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDescripcion.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.lblDescripcion.Location = new System.Drawing.Point(16, 92);
-            this.lblDescripcion.MaximumSize = new System.Drawing.Size(250, 0);
+            this.lblDescripcion.MaximumSize = new System.Drawing.Size(275, 0);
             this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Size = new System.Drawing.Size(85, 17);
             this.lblDescripcion.TabIndex = 2;
@@ -85,6 +85,7 @@ namespace ProyectoCatedraPED
             this.btnLeer.TabIndex = 7;
             this.btnLeer.Text = "Empezar Lectura";
             this.btnLeer.UseVisualStyleBackColor = false;
+            this.btnLeer.Click += new System.EventHandler(this.btnLeer_Click);
             // 
             // btnCerrar
             // 
@@ -99,6 +100,7 @@ namespace ProyectoCatedraPED
             this.btnCerrar.TabIndex = 8;
             this.btnCerrar.Text = "Cerrar Ventana";
             this.btnCerrar.UseVisualStyleBackColor = false;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
             // label1
             // 
@@ -117,7 +119,7 @@ namespace ProyectoCatedraPED
             this.lblNota.AutoSize = true;
             this.lblNota.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNota.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblNota.Location = new System.Drawing.Point(311, 15);
+            this.lblNota.Location = new System.Drawing.Point(311, 52);
             this.lblNota.Name = "lblNota";
             this.lblNota.Size = new System.Drawing.Size(42, 25);
             this.lblNota.TabIndex = 10;
