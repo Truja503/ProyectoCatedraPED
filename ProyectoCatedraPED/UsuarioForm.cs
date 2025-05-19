@@ -244,5 +244,10 @@ namespace ProyectoCatedraPED
 
             g.DrawLine(flecha, nuevoDesde, nuevoHacia);
         }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
