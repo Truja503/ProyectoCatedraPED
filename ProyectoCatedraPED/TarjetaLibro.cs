@@ -16,10 +16,5 @@ namespace ProyectoCatedraPED
         {
             InitializeComponent();
         }
-        public void CargarDatos(Libro libro)
-        {
-            lblTitulo.Text = libro.Titulo;
-            lblAutor.Text = libro.Autor;
-        }
     }
 }
