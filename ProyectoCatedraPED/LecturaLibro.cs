@@ -29,11 +29,6 @@ namespace ProyectoCatedraPED
             InicializarPaginas();
             MostrarPagina();
 
-            //
-            Console.WriteLine("ID USER: " + UserId + " | ID BOOK: " + libroId);
-            id_user = UserId;
-            id_book = libroId;
-
             this.DoubleBuffered = true;
 
             grafo = new GrafoLibro();
@@ -125,18 +120,7 @@ namespace ProyectoCatedraPED
 
         private void btnCompletar_Click(object sender, EventArgs e)
         {
-            CalificarLibro calificarForm = new CalificarLibro();
 
-            if (calificarForm.ShowDialog() == DialogResult.OK)
-            {
-                int calificacion = calificarForm.UserRating;
-                bool completed = true;
-
-                grafo.AgregarCalificacion(id_book, id_user, completed, calificacion);
-
-                btnCompletar.Enabled = false;
-                btnAbandonar.Enabled = false;
-            }
         }
 
         private void btnAbandonar_Click(object sender, EventArgs e)
@@ -149,9 +133,6 @@ namespace ProyectoCatedraPED
                 bool completed = false;
 
                 grafo.AgregarCalificacion(id_book, id_user, completed, calificacion);
-
-                btnCompletar.Enabled = false;
-                btnAbandonar.Enabled = false;
             }
         }
     }
