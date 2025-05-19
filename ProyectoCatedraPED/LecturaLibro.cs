@@ -32,6 +32,7 @@ namespace ProyectoCatedraPED
             Console.WriteLine("ID USER: " + UserId + " | ID BOOK: " + libroId);
             id_user = UserId;
             id_book = libroId;
+
             this.DoubleBuffered = true;
 
             grafo = new GrafoLibro();
@@ -134,6 +135,8 @@ namespace ProyectoCatedraPED
 
                 btnCompletar.Enabled = false;
                 btnAbandonar.Enabled = false;
+
+                MessageBox.Show("Se ha calificado con exito", "Info");
             }
         }
 
@@ -150,6 +153,8 @@ namespace ProyectoCatedraPED
 
                 btnCompletar.Enabled = false;
                 btnAbandonar.Enabled = false;
+
+                MessageBox.Show("Se ha calificado con exito", "Info");
             }
         }
     }

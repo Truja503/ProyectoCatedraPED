@@ -36,6 +36,7 @@ namespace ProyectoCatedraPED
             this.btnAbandonar = new System.Windows.Forms.Button();
             this.btnCompletar = new System.Windows.Forms.Button();
             this.btnRegresar = new System.Windows.Forms.Button();
+            this.lblCalificado = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -133,12 +134,23 @@ namespace ProyectoCatedraPED
             this.btnRegresar.UseVisualStyleBackColor = false;
             this.btnRegresar.Click += new System.EventHandler(this.btnRegresar_Click);
             // 
+            // lblCalificado
+            // 
+            this.lblCalificado.AutoSize = true;
+            this.lblCalificado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCalificado.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblCalificado.Location = new System.Drawing.Point(439, 305);
+            this.lblCalificado.Name = "lblCalificado";
+            this.lblCalificado.Size = new System.Drawing.Size(0, 20);
+            this.lblCalificado.TabIndex = 12;
+            // 
             // LecturaLibro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblCalificado);
             this.Controls.Add(this.btnRegresar);
             this.Controls.Add(this.btnAbandonar);
             this.Controls.Add(this.btnCompletar);
@@ -150,6 +162,7 @@ namespace ProyectoCatedraPED
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LecturaLibro";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -162,5 +175,6 @@ namespace ProyectoCatedraPED
         private System.Windows.Forms.Button btnAbandonar;
         private System.Windows.Forms.Button btnCompletar;
         private System.Windows.Forms.Button btnRegresar;
+        private System.Windows.Forms.Label lblCalificado;
     }
 }
