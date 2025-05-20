@@ -24,7 +24,7 @@ namespace ProyectoCatedraPED
         {
             InitializeComponent();
 
-            // Harcoding User
+            // Harcoding User 
             this.id_user = (id_user != 0) ? id_user : 1;
 
             grafo = new GrafoLibro();
@@ -312,6 +312,11 @@ namespace ProyectoCatedraPED
         private void button1_Click(object sender, EventArgs e)
         {
             //
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            grafo.ActualizarScoreLibros();
         }
     }
 }

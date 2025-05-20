@@ -107,14 +107,11 @@ namespace ProyectoCatedraPED
             listaLibros.Clear();
 
             string connectionString = "Server=localhost;Database=bibliotech;User Id=sa;Password=Pass123$_;";
-            string query = "SELECT b.id, b.isbn, b.title, a.genre_name AS genre, b.autor, b.year, b.image_name, C.score, b.genre_id " +
-                            "FROM Books b " +
+            string query = "SELECT b.id, b.isbn, b.title, a.genre_name AS genre, b.autor, b.year, b.image_name, s.score, b.genre_id FROM Books b " +
                             "LEFT JOIN Genres a ON b.genre_id = a.id " +
-                            "LEFT JOIN Score C ON C.book_id = b.id " +
-                            "JOIN BookRatings l ON l.book_id = b.id " +
-                            "GROUP BY  b.id, b.isbn, b.title, a.genre_name, b.autor, b.year, b.image_name, C.score, b.genre_id " +
-                            "HAVING b.id NOT IN( " +
-                            "SELECT l1.book_id " +
+                            "LEFT JOIN Score s ON s.book_id = b.id " +
+                            "WHERE b.id NOT IN( " +
+                            "SELECT DISTINCT l1.book_id " +
                             "FROM BookRatings l1 " +
                             "JOIN BookRatings l2 ON l1.user_id = l2.user_id AND l1.book_id <> l2.book_id " +
                             "JOIN Books b1 ON l1.book_id = b1.id " +
@@ -296,6 +293,11 @@ namespace ProyectoCatedraPED
                     Console.WriteLine("Error al insertar calificación: " + ex.Message);
                 }
             }
+        }
+
+        public void ActualizarScoreLibros()
+        {
+            //
         }
 
         // Método para agregar una conexión dirigida de 'origen' hacia 'destino'

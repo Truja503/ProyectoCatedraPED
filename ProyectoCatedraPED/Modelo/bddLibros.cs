@@ -8,7 +8,7 @@ namespace ProyectoCatedraPED.Modelo
     public partial class bddLibros : DbContext
     {
         public bddLibros()
-            : base("name=bddLibros")
+            : base("name=bibliotech")
         {
         }
 

@@ -58,7 +58,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.AliceBlue;
-            this.button1.Location = new System.Drawing.Point(859, 564);
+            this.button1.Location = new System.Drawing.Point(859, 516);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(201, 54);
             this.button1.TabIndex = 11;
@@ -70,7 +70,7 @@
             // 
             this.txtmail.BackColor = System.Drawing.SystemColors.Window;
             this.txtmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtmail.Location = new System.Drawing.Point(859, 267);
+            this.txtmail.Location = new System.Drawing.Point(859, 243);
             this.txtmail.Multiline = true;
             this.txtmail.Name = "txtmail";
             this.txtmail.Size = new System.Drawing.Size(284, 40);
@@ -80,7 +80,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(852, 227);
+            this.label2.Location = new System.Drawing.Point(852, 203);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(164, 37);
             this.label2.TabIndex = 9;
@@ -90,7 +90,7 @@
             // 
             this.txtNombre.BackColor = System.Drawing.SystemColors.Window;
             this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(859, 157);
+            this.txtNombre.Location = new System.Drawing.Point(859, 148);
             this.txtNombre.Multiline = true;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(284, 40);
@@ -101,7 +101,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(852, 117);
+            this.label1.Location = new System.Drawing.Point(852, 102);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(132, 37);
             this.label1.TabIndex = 7;
@@ -121,7 +121,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(852, 341);
+            this.label4.Location = new System.Drawing.Point(852, 311);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(183, 37);
             this.label4.TabIndex = 13;
@@ -131,7 +131,7 @@
             // 
             this.txtpass.BackColor = System.Drawing.SystemColors.Window;
             this.txtpass.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtpass.Location = new System.Drawing.Point(859, 381);
+            this.txtpass.Location = new System.Drawing.Point(859, 351);
             this.txtpass.Multiline = true;
             this.txtpass.Name = "txtpass";
             this.txtpass.PasswordChar = '*';
@@ -142,7 +142,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(852, 453);
+            this.label5.Location = new System.Drawing.Point(852, 416);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(334, 37);
             this.label5.TabIndex = 15;
@@ -152,7 +152,7 @@
             // 
             this.txtpassagain.BackColor = System.Drawing.SystemColors.Window;
             this.txtpassagain.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtpassagain.Location = new System.Drawing.Point(859, 493);
+            this.txtpassagain.Location = new System.Drawing.Point(859, 456);
             this.txtpassagain.Multiline = true;
             this.txtpassagain.Name = "txtpassagain";
             this.txtpassagain.PasswordChar = '*';
@@ -178,7 +178,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1384, 661);
+            this.ClientSize = new System.Drawing.Size(1332, 611);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.txtpassagain);
             this.Controls.Add(this.label5);
@@ -192,7 +192,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Name = "RegistroForm";
-            this.Text = "RegistroForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Registrarse";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RegistroForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

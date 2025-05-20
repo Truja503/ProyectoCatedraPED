@@ -29,14 +29,18 @@ namespace ProyectoCatedraPED
                 if(textBox1.Text == "" || textBox2.Text == "")
                 {
                     MessageBox.Show("Todos los campos deben ir llenos !", "Vuelva a intentarlo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
                 }
                 else
                 {
                     string name = textBox1.Text;
                     string passw = HashPassword(textBox2.Text);
 
+                    Console.WriteLine("PASO 1");
+
                     var usuario = bd.Users.FirstOrDefault(u => u.username == name);
+                    
+                    Console.WriteLine("PASO 2");
+
                     if (usuario != null && usuario.password == passw)
                     {
                         MessageBox.Show($"¡Bienvenido {usuario.fullname}!");
@@ -53,7 +57,7 @@ namespace ProyectoCatedraPED
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al enviar los datos: " + ex.Message, "Error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine("Error al enviar los datos: " + ex.Message);
 
             }
 
