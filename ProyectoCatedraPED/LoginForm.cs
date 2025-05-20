@@ -40,7 +40,7 @@ namespace ProyectoCatedraPED
                     if (usuario != null && usuario.password == passw)
                     {
                         MessageBox.Show($"¡Bienvenido {usuario.fullname}!");
-                        Principal principal = new Principal();
+                        Principal principal = new Principal(usuario.id);
                         principal.Show();
                         this.Hide();
                     }
@@ -65,6 +65,13 @@ namespace ProyectoCatedraPED
                 byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
                 return Convert.ToBase64String(bytes);
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            RegistroForm r= new RegistroForm();
+            r.Show();
+            this.Hide();
         }
     }
 }

@@ -28,6 +28,7 @@ namespace ProyectoCatedraPED
 
         private void button1_Click(object sender, EventArgs e)
         {
+            var usuarioExistente = bd.Users.FirstOrDefault(u => u.username == txtmail.Text);
             try
             {
                 if (txtNombre.Text == "" || txtmail.Text == "" || txtpass.Text == "" || txtpassagain.Text == "")
@@ -39,6 +40,11 @@ namespace ProyectoCatedraPED
                     MessageBox.Show("Las contraseñas deben ser iguales !", "Vuelva a intentarlo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     txtpass.Clear();
                     txtpassagain.Clear();
+                }
+                else if (usuarioExistente != null)
+                {
+                    MessageBox.Show("Este usuario ya existe. Intenta con otro.", "Usuario duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
                 else
                 {
@@ -53,7 +59,7 @@ namespace ProyectoCatedraPED
                     bd.SaveChanges();   
                 MessageBox.Show("Usuario creado exitosamente !  Que disfrutes tu experiencia", "Ingreso correcto", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Thread.Sleep(1000);
-                    Principal login = new Principal();
+                    Principal login = new Principal(user.id);
                     login.Show();
                     this.Hide();
                 }
